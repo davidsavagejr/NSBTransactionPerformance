@@ -1,30 +1,21 @@
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using Contracts;
 using Data;
 using NPoco;
-using NServiceBus.Config;
-using NServiceBus.Persistence;
 
 namespace Service
 {
     using NServiceBus;
 
-    /*
-		This class configures this endpoint as a Server. More information about how to configure the NServiceBus host
-		can be found here: http://particular.net/articles/the-nservicebus-host
-	*/
     public class EndpointConfig : IConfigureThisEndpoint
     {
         public void Customize(BusConfiguration configuration)
         {
-            configuration.UsePersistence<RavenDBPersistence>();
-            configuration.Transactions().DisableDistributedTransactions();
-            configuration.Transactions().DoNotWrapHandlersExecutionInATransactionScope();
-
-            //configuration.Transactions().Disable();
+            configuration.UsePersistence<InMemoryPersistence>();
+            //configuration.Transactions().DisableDistributedTransactions();
+            //configuration.Transactions().DoNotWrapHandlersExecutionInATransactionScope();
             //configuration.Transactions().Disable();
         }
     }
