@@ -8,6 +8,8 @@ namespace Service
 {
     public class BuildWidgetHandler : IHandleMessages<BuildWidgetCommand>
     {
+        static ILog logger = LogManager.GetLogger<BuildWidgetHandler>();
+
         public void Handle(BuildWidgetCommand message)
         {
             using (var db = new Database("connstr"))
@@ -19,7 +21,7 @@ namespace Service
             if (!message.Tracer) return;
 
             Startup.Timer.Stop();
-            LogManager.GetLogger(GetType()).InfoFormat("Elapsed seconds: {0}", Startup.Timer.Elapsed.TotalSeconds);
+            logger.InfoFormat("Elapsed seconds: {0}", Startup.Timer.Elapsed.TotalSeconds);
         }
     }
 }
